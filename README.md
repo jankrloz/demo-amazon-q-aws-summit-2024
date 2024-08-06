@@ -62,6 +62,23 @@ Run
 `task --list-all`
 to see all available tasks.
 
+task: Available tasks for this project:
+
+- `install`: 📦 Install dependencies
+- `lint`: 🎨 Lint the code
+- `lint:fix`: 🎨 Lint and fix the code
+- `test`: 🧪 Test the code
+- `test:watch`: 🧪 Test the code in watch mode
+- `run`: 🚀 Run the application in development mode (aliases: dev, start, up)
+- `run:watch`: 🚀 Run the application in development mode, and watch for changes for reloading (aliases: watch, dev:watch, start:watch, up:watch)
+- `run:build`: 🚀 Build and run the application (aliases: dev:build, start:build, up:build)
+- `restart`: 🚀 Restart the application (aliases: refresh)
+- `stop`: 🛑 Stop the application
+- `down`: 🔻 Stop the application, and remove the containers
+- `clean:containers`: 🧼 Clean the application, and associacted resources, like images, volumes and networks
+- `logs`: 🪵 Show the application logs
+- `logs:db`: 🪵 Show the database logs
+
 ## Demo
 
 ### Instructions

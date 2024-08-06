@@ -7,56 +7,80 @@ vars:
 
 tasks:
   install:
+    desc: 📦 Install dependencies
     cmds:
       - poetry install
 
   lint:
+    desc: 🎨 Lint the code
     deps:
       - lint:check
       - lint:format
       - lint:type
 
   lint:fix:
+    desc: 🎨 Lint and fix the code
     deps:
       - lint:check:fix
       - lint:format:fix
 
   lint:check:
+    internal: true
     cmds:
       - poetry run ruff check .
 
   lint:check:fix:
+    internal: true
     cmds:
       - poetry run ruff check --fix .
 
   lint:type:
+    internal: true
     cmds:
       - poetry run mypy .
 
   lint:format:
+    internal: true
     cmds:
       - poetry run ruff format --check .
 
   lint:format:fix:
+    internal: true
     cmds:
       - poetry run ruff format .
 
   test:
+    desc: 🧪 Test the code
     cmds:
       - poetry run pytest tests/
 
   test:watch:
+    desc: 🧪 Test the code in watch mode
     cmds:
       - poetry run pytest --watch tests/
 
   run:
+    desc: 🚀 Run the application in development mode
     aliases:
       - dev
       - start
       - up
     cmds:
+      - task --summary {{.TASK}}
       - docker compose up --detach
+
+  run:watch:
+    desc: 🚀 Run the application in development mode, and watch for changes for reloading
+    aliases:
+      - watch
+      - dev:watch
+      - start:watch
+      - up:watch
+    cmds:
+      - docker compose up --watch
+
   run:build:
+    desc: 🚀 Build and run the application
     aliases:
       - dev:build
       - start:build
@@ -64,20 +88,36 @@ tasks:
     cmds:
       - docker compose up --build --detach
 
-  logs:
+  restart:
+    desc: 🚀 Restart the application
+    aliases:
+      - refresh
     cmds:
-      - docker compose logs app
+      - docker compose restart --build --detach
+
+  logs:
+    desc: 🪵 Show the application logs
+    cmds:
+      - docker compose logs --follow app
+
+  logs:db:
+    desc: 🪵 Show the database logs
+    cmds:
+      - docker compose logs --follow db
 
   stop:
+    desc: 🛑 Stop the application
     cmds:
       - docker compose stop
 
   down:
+    desc: 🔻 Stop the application, and remove the containers
     cmds:
       - docker compose down
 
   clean:containers:
+    desc: 🧼 Clean the application, and associacted resources, like images, volumes and networks
     prompt: Are you sure?
     cmds:
-      - docker compose down --rmi all
+      - docker compose down --rmi all --volumes
       - docker compose down --rmi local
