@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "demo-amazon-q-aws-summit-2024"
+version = "0.1.0"
+description = "Demo for Amazon Q presented in AWS Summit 2024 CDMX"
+authors = ["Juan Carlos Navarrete <juan.navarrete@konfio.mx>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+SQLAlchemy = { extras = ["mypy"], version = "^2.0.32" }
+fastapi = { extras = ["standard"], version = "^0.112.0" }
+PyMySQL = { extras = ["rsa"], version = "^1.1.1" }
+pydantic = "^2.8.2"
+cryptography = "^43.0.0"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.11.1"
+pytest = "^8.3.2"
+ruff = "^0.5.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

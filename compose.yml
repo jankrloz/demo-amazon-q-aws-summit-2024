@@ -1,0 +1,33 @@
+include:
+  # - "compose.mysql-57.yml"
+  - "compose.mysql-80.yml"
+
+services:
+  app:
+    build: .
+    container_name: konfio-aws-summit-2024-app
+    develop:
+      watch:
+        - action: sync
+          path: ./app
+          target: /code/app
+          ignore:
+            - .venv/
+        - action: rebuild
+          path: pyproject.toml
+    ports:
+      - "8000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=mydatabase
+      - DB_USER=myuser
+      - DB_PASSWORD=mypassword
+    networks:
+      - app-network
+
+networks:
+  app-network:

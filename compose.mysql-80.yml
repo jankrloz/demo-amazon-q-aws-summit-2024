@@ -1,0 +1,34 @@
+services:
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    container_name: konfio-aws-summit-2024-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    command: mysqld --sql_mode=""
+    volumes:
+      - db_data_mysql_80:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "exit | mysql -h localhost -P 3306 -u root -p$$MYSQL_ROOT_PASSWORD",
+        ]
+      start_period: 5s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data_mysql_80:
+
+networks:
+  app-network:

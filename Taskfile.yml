@@ -1,0 +1,83 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  install:
+    cmds:
+      - poetry install
+
+  lint:
+    deps:
+      - lint:check
+      - lint:format
+      - lint:type
+
+  lint:fix:
+    deps:
+      - lint:check:fix
+      - lint:format:fix
+
+  lint:check:
+    cmds:
+      - poetry run ruff check .
+
+  lint:check:fix:
+    cmds:
+      - poetry run ruff check --fix .
+
+  lint:type:
+    cmds:
+      - poetry run mypy .
+
+  lint:format:
+    cmds:
+      - poetry run ruff format --check .
+
+  lint:format:fix:
+    cmds:
+      - poetry run ruff format .
+
+  test:
+    cmds:
+      - poetry run pytest tests/
+
+  test:watch:
+    cmds:
+      - poetry run pytest --watch tests/
+
+  run:
+    aliases:
+      - dev
+      - start
+      - up
+    cmds:
+      - docker compose up --detach
+  run:build:
+    aliases:
+      - dev:build
+      - start:build
+      - up:build
+    cmds:
+      - docker compose up --build --detach
+
+  logs:
+    cmds:
+      - docker compose logs app
+
+  stop:
+    cmds:
+      - docker compose stop
+
+  down:
+    cmds:
+      - docker compose down
+
+  clean:containers:
+    prompt: Are you sure?
+    cmds:
+      - docker compose down --rmi all
+      - docker compose down --rmi local
