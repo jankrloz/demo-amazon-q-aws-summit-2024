@@ -1,4 +1,6 @@
-# Project Name
+# Amazon Q Demo
+
+> At AWS Summit 2024 CDMX
 
 ## Prerequisites
 
@@ -14,7 +16,7 @@
 2. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo/project.git
+   git clone git@github.com:jankrloz/demo-amazon-q-aws-summit-2024.git
    cd project
    ```
 
@@ -30,13 +32,33 @@ To start the development server, run:
 
 ```bash
 task dev
+# or
+task watch # This will start the server and watch for changes, automatically reloading the server when necessary.
 ```
 
-This will start the server and watch for changes, automatically reloading the server when necessary.
+To see container logs, run:
+
+```bash
+task run
+```
+
+To stop the container, run:
+
+```bash
+task stop
+```
+
+To clean the container, images, volumes, and networks, run:
+
+```bash
+task clean:containers
+```
 
 ## Additional Tasks
 
-The Taskfile provides additional tasks for common operations. Run
+The Taskfile provides additional tasks for common operations.
+
+Run
 `task --list-all`
 to see all available tasks.
 
