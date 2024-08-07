@@ -90,3 +90,7 @@ task: Available tasks for this project:
 5. Run again the app in MySQL 8.0 (will work)
 
 ### Amazon Q Prompts
+
+- > Fix my SQL code to be compatible with MySQL 8.0 without changing the schema names.
+
+- > How would my code look with the suggested changes?
